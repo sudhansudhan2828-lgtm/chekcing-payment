@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subscription Plans</title>
+</head>
+<body>
+
+    <h1>Choose Your Subscription</h1>
+
+    <div>
+        <h2>Basic Plan</h2>
+        <h3>$10 / Month</h3>
+        <button onclick="subscribe('basic')">
+            Subscribe
+        </button>
+    </div>
+
+    <div>
+        <h2>Pro Plan</h2>
+        <h3>$20 / Month</h3>
+        <button onclick="subscribe('pro')">
+            Subscribe
+        </button>
+    </div>
+
+    <script>
+        async function subscribe(plan) {
+
+            const response = await fetch(
+                "http://localhost:3000/create-subscription",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ plan })
+                }
+            );
+
+            const data = await response.json();
+
+            window.location.href = data.url;
+        }
+    </script>
+
+</body>
+</html>
